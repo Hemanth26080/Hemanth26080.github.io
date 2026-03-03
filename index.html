@@ -846,10 +846,76 @@
     .back-to-top.visible { opacity: 1; transform: translateY(0); }
     .back-to-top:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,229,255,0.4); }
 
+    /* ─── LANGUAGE SWITCHER ─── */
+    .lang-switcher {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .lang-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 6px 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.5px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .lang-btn .lang-flag { font-size: 15px; }
+    .lang-btn .lang-arrow {
+      font-size: 9px;
+      transition: transform 0.2s;
+      margin-left: 2px;
+    }
+    .lang-switcher.open .lang-arrow { transform: rotate(180deg); }
+
+    .lang-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: #0a1628;
+      border: 1px solid var(--border);
+      min-width: 180px;
+      z-index: 200;
+      display: none;
+      flex-direction: column;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+    }
+    .lang-switcher.open .lang-dropdown { display: flex; }
+
+    .lang-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: var(--font-mono);
+      transition: all 0.15s;
+      border: none;
+      background: transparent;
+      text-align: left;
+      letter-spacing: 0.5px;
+    }
+    .lang-option:hover { background: rgba(0,229,255,0.06); color: var(--accent); }
+    .lang-option.active { color: var(--accent2); }
+    .lang-option .flag { font-size: 16px; }
+    .lang-option .lang-name { flex: 1; }
+    .lang-option .lang-native { font-size: 10px; color: var(--muted); opacity: 0.7; }
+
     /* ─── RESPONSIVE ─── */
     @media (max-width: 768px) {
       nav { padding: 16px 20px; }
       .nav-links { display: none; }
+      .lang-switcher { display: flex; }
       section { padding: 64px 20px; }
       #hero { padding: 100px 20px 60px; }
       .carousel-slide { grid-template-columns: 1fr; padding: 0 20px; gap: 32px; }
@@ -872,13 +938,33 @@
 <nav id="navbar">
   <a href="#hero" class="nav-logo">H<span>emanth</span></a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#resume-section">Resume</a></li>
-    <li><a href="#contact" class="nav-btn">Get in Touch</a></li>
+    <li><a href="#about" data-i18n="nav.about">About</a></li>
+    <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+    <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
+    <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+    <li><a href="#resume-section" data-i18n="nav.resume">Resume</a></li>
+    <li><a href="#contact" class="nav-btn" data-i18n="nav.contact">Get in Touch</a></li>
   </ul>
+  <!-- LANGUAGE SWITCHER -->
+  <div class="lang-switcher" id="langSwitcher">
+    <button class="lang-btn" id="langBtn">
+      <span class="lang-flag" id="currentFlag">🇬🇧</span>
+      <span id="currentLangCode">EN</span>
+      <span class="lang-arrow">▼</span>
+    </button>
+    <div class="lang-dropdown" id="langDropdown">
+      <button class="lang-option active" data-lang="en"><span class="flag">🇬🇧</span><span class="lang-name">English</span><span class="lang-native">Default</span></button>
+      <button class="lang-option" data-lang="fr"><span class="flag">🇫🇷</span><span class="lang-name">Français</span><span class="lang-native">French</span></button>
+      <button class="lang-option" data-lang="de"><span class="flag">🇩🇪</span><span class="lang-name">Deutsch</span><span class="lang-native">German</span></button>
+      <button class="lang-option" data-lang="nl"><span class="flag">🇳🇱</span><span class="lang-name">Nederlands</span><span class="lang-native">Dutch</span></button>
+      <button class="lang-option" data-lang="sv"><span class="flag">🇸🇪</span><span class="lang-name">Svenska</span><span class="lang-native">Swedish</span></button>
+      <button class="lang-option" data-lang="pl"><span class="flag">🇵🇱</span><span class="lang-name">Polski</span><span class="lang-native">Polish</span></button>
+      <button class="lang-option" data-lang="es"><span class="flag">🇪🇸</span><span class="lang-name">Español</span><span class="lang-native">Spanish</span></button>
+      <button class="lang-option" data-lang="it"><span class="flag">🇮🇹</span><span class="lang-name">Italiano</span><span class="lang-native">Italian</span></button>
+      <button class="lang-option" data-lang="pt"><span class="flag">🇵🇹</span><span class="lang-name">Português</span><span class="lang-native">Portuguese</span></button>
+      <button class="lang-option" data-lang="fi"><span class="flag">🇫🇮</span><span class="lang-name">Suomi</span><span class="lang-native">Finnish</span></button>
+    </div>
+  </div>
 </nav>
 
 <!-- ── HERO ── -->
@@ -889,17 +975,17 @@
   <div class="hero-content">
     <div class="hero-tag">
       <span class="dot"></span>
-      Available for Internships · Paris, France
+      <span data-i18n="hero.tag">Available for Internships · Paris, France</span>
     </div>
     <h1 class="hero-name">Hemanth<br><em>DevSecOps.</em></h1>
-    <p class="hero-subtitle"><strong>SRE · Cloud Security · IaC Engineer</strong></p>
+    <p class="hero-subtitle"><strong data-i18n="hero.subtitle">SRE · Cloud Security · IaC Engineer</strong></p>
     <p class="hero-desc">
-      Hands-on builder of <b>secure, automated cloud infrastructure</b>. MS student in <b>Cloudification & Data Security</b> (Paris). 18 public GitHub repos. 27+ Bash automation scripts. Previously a Data Analytics Engineer at <b>Capgemini</b> for 2 years. Bringing mainframe reliability discipline to modern cloud.<span class="cursor"></span>
+      <span data-i18n="hero.desc">Hands-on builder of <b>secure, automated cloud infrastructure</b>. MS student in <b>Cloudification & Data Security</b> (Paris). 18 public GitHub repos. 27+ Bash automation scripts. Previously a Data Analytics Engineer at <b>Capgemini</b> for 2 years. Bringing mainframe reliability discipline to modern cloud.</span><span class="cursor"></span>
     </p>
     <div class="hero-cta">
-      <a href="https://github.com/Hemanth26080" target="_blank" class="btn-primary">View GitHub</a>
+      <a href="https://github.com/Hemanth26080" target="_blank" class="btn-primary" data-i18n="hero.cta.github">View GitHub</a>
       <a href="https://www.linkedin.com/in/hemanth260800/" target="_blank" class="btn-secondary">LinkedIn</a>
-      <a href="#contact" class="btn-secondary">Hire Me →</a>
+      <a href="#contact" class="btn-secondary" data-i18n="hero.cta.hire">Hire Me →</a>
     </div>
     <div class="hero-stats">
       <div class="stat-item"><div class="stat-num" data-count="18">0</div><div class="stat-label">Public Repos</div></div>
@@ -1017,7 +1103,7 @@
 <section id="skills">
   <div class="section-header anim-up">
     <span class="section-num">01</span>
-    <h2 class="section-title">Technical Stack</h2>
+    <h2 class="section-title" data-i18n="sec.skills">Technical Stack</h2>
     <div class="section-line"></div>
   </div>
   <div class="skills-grid">
@@ -1033,7 +1119,7 @@
 <section id="experience">
   <div class="section-header anim-up">
     <span class="section-num">02</span>
-    <h2 class="section-title">Experience</h2>
+    <h2 class="section-title" data-i18n="sec.experience">Experience</h2>
     <div class="section-line"></div>
   </div>
   <div class="timeline">
@@ -1092,7 +1178,7 @@
 <section id="projects">
   <div class="section-header anim-up">
     <span class="section-num">03</span>
-    <h2 class="section-title">Projects</h2>
+    <h2 class="section-title" data-i18n="sec.projects">Projects</h2>
     <div class="section-line"></div>
   </div>
   <div class="projects-grid">
@@ -1150,7 +1236,7 @@
 <section id="certifications">
   <div class="section-header anim-up">
     <span class="section-num">04</span>
-    <h2 class="section-title">Certifications</h2>
+    <h2 class="section-title" data-i18n="sec.certifications">Certifications</h2>
     <div class="section-line"></div>
   </div>
 
@@ -1211,7 +1297,7 @@
 <section id="education" style="background: var(--surface);">
   <div class="section-header anim-up">
     <span class="section-num">05</span>
-    <h2 class="section-title">Education</h2>
+    <h2 class="section-title" data-i18n="sec.education">Education</h2>
     <div class="section-line"></div>
   </div>
   <div class="edu-grid">
@@ -1234,7 +1320,7 @@
 <section id="resume-section">
   <div class="section-header anim-up">
     <span class="section-num">06</span>
-    <h2 class="section-title">My Resume</h2>
+    <h2 class="section-title" data-i18n="sec.myresume">My Resume</h2>
     <div class="section-line"></div>
   </div>
   <div class="resume-viewer anim-up">
@@ -1353,8 +1439,8 @@
 <section id="contact">
   <div class="contact-grid anim-up">
     <div class="contact-left">
-      <h2>Let's <span>build</span><br>together.</h2>
-      <p>Seeking DevSecOps, SRE, or Cloud Engineering internships in Paris. I ship real code and bring production-reliability thinking from day one.</p>
+      <h2>Let's <span data-i18n="contact.build">build</span><br><span data-i18n="contact.together">together.</span></h2>
+      <p data-i18n="contact.sub">Seeking DevSecOps, SRE, or Cloud Engineering internships in Paris. I ship real code and bring production-reliability thinking from day one.</p>
       <div class="contact-social">
         <a href="https://www.linkedin.com/in/hemanth260800/" target="_blank" class="contact-social-link">
           <span class="contact-social-icon">💼</span>
@@ -1373,22 +1459,22 @@
     <div>
       <form class="contact-form" id="contactForm">
         <div class="form-group">
-          <label class="form-label" for="name">Your Name</label>
-          <input class="form-input" type="text" id="name" placeholder="Jane Smith" required>
+          <label class="form-label" for="name" data-i18n="form.name">Your Name</label>
+          <input class="form-input" type="text" id="name" data-i18n-ph="form.name.ph" placeholder="Jane Smith" required>
         </div>
         <div class="form-group">
-          <label class="form-label" for="email">Email Address</label>
-          <input class="form-input" type="email" id="email" placeholder="jane@company.com" required>
+          <label class="form-label" for="email" data-i18n="form.email">Email Address</label>
+          <input class="form-input" type="email" id="email" data-i18n-ph="form.email.ph" placeholder="jane@company.com" required>
         </div>
         <div class="form-group">
-          <label class="form-label" for="subject">Subject</label>
-          <input class="form-input" type="text" id="subject" placeholder="DevSecOps Internship Opportunity">
+          <label class="form-label" for="subject" data-i18n="form.subject">Subject</label>
+          <input class="form-input" type="text" id="subject" data-i18n-ph="form.subject.ph" placeholder="DevSecOps Internship Opportunity">
         </div>
         <div class="form-group">
-          <label class="form-label" for="message">Message</label>
-          <textarea class="form-textarea" id="message" placeholder="Tell me about the role or opportunity..." required></textarea>
+          <label class="form-label" for="message" data-i18n="form.message">Message</label>
+          <textarea class="form-textarea" id="message" data-i18n-ph="form.message.ph" placeholder="Tell me about the role or opportunity..." required></textarea>
         </div>
-        <button type="submit" class="form-submit" id="submitBtn">Send Message →</button>
+        <button type="submit" class="form-submit" id="submitBtn" data-i18n="form.send">Send Message →</button>
         <div class="form-success" id="formSuccess">
           ✓ Message sent! I'll get back to you within 24 hours.
         </div>
@@ -1399,8 +1485,8 @@
 
 <!-- ── FOOTER ── -->
 <footer>
-  <span>© 2026 Hemanth · DevSecOps & SRE · Paris 🇫🇷</span>
-  <span style="color: var(--accent);">Built with HTML, CSS & JS</span>
+  <span data-i18n="footer.copy">© 2026 Hemanth · DevSecOps & SRE · Paris 🇫🇷</span>
+  <span style="color: var(--accent);" data-i18n="footer.built">Built with HTML, CSS & JS</span>
 </footer>
 
 <script>
@@ -1585,18 +1671,184 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
   }, 1200);
 });
 
-// ─── SMOOTH NAV ACTIVE ───
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(s => {
-    if (window.scrollY >= s.offsetTop - 100) current = s.id;
+// ─── LANGUAGE SWITCHER ───────────────────────────────────────────────────────
+const LANGS = {
+  en: { flag: '🇬🇧', code: 'EN', t: {
+    'nav.about':'About','nav.skills':'Skills','nav.experience':'Experience','nav.projects':'Projects','nav.resume':'Resume','nav.contact':'Get in Touch',
+    'hero.tag':'Available for Internships · Paris, France',
+    'hero.subtitle':'SRE · Cloud Security · IaC Engineer',
+    'hero.desc':'Hands-on builder of <b>secure, automated cloud infrastructure</b>. MS student in <b>Cloudification & Data Security</b> (Paris). 18 public GitHub repos. 27+ Bash automation scripts. Previously a Data Analytics Engineer at <b>Capgemini</b> for 2 years. Bringing mainframe reliability discipline to modern cloud.',
+    'hero.cta.github':'View GitHub','hero.cta.hire':'Hire Me →',
+    'sec.skills':'Technical Stack','sec.experience':'Experience','sec.projects':'Projects','sec.certifications':'Certifications','sec.education':'Education','sec.myresume':'My Resume',
+    'contact.build':'build','contact.together':'together.','contact.sub':'Seeking DevSecOps, SRE, or Cloud Engineering internships in Paris. I ship real code and bring production-reliability thinking from day one.',
+    'form.name':'Your Name','form.name.ph':'Jane Smith','form.email':'Email Address','form.email.ph':'jane@company.com','form.subject':'Subject','form.subject.ph':'DevSecOps Internship Opportunity','form.message':'Message','form.message.ph':'Tell me about the role or opportunity...','form.send':'Send Message →',
+    'footer.copy':'© 2026 Hemanth · DevSecOps & SRE · Paris 🇫🇷','footer.built':'Built with HTML, CSS & JS',
+  }},
+  fr: { flag: '🇫🇷', code: 'FR', t: {
+    'nav.about':'À propos','nav.skills':'Compétences','nav.experience':'Expérience','nav.projects':'Projets','nav.resume':'CV','nav.contact':'Me Contacter',
+    'hero.tag':'Disponible pour des stages · Paris, France',
+    'hero.subtitle':'SRE · Sécurité Cloud · Ingénieur IaC',
+    'hero.desc':'Développeur d\'<b>infrastructure cloud sécurisée et automatisée</b>. Étudiant en MSc <b>Cloudification & Sécurité des Données</b> (Paris). 18 dépôts GitHub publics. 27+ scripts Bash d\'automatisation. Ancien Ingénieur Analytique chez <b>Capgemini</b> (2 ans). Rigueur mainframe appliquée au cloud moderne.',
+    'hero.cta.github':'Voir GitHub','hero.cta.hire':'Recrutez-moi →',
+    'sec.skills':'Compétences Techniques','sec.experience':'Expérience','sec.projects':'Projets','sec.certifications':'Certifications','sec.education':'Formation','sec.myresume':'Mon CV',
+    'contact.build':'construire','contact.together':'ensemble.','contact.sub':'Recherche un stage DevSecOps, SRE ou Ingénierie Cloud à Paris. Je livre du code de production dès le premier jour.',
+    'form.name':'Votre Nom','form.name.ph':'Marie Dupont','form.email':'Adresse E-mail','form.email.ph':'marie@entreprise.fr','form.subject':'Objet','form.subject.ph':'Stage DevSecOps','form.message':'Message','form.message.ph':'Parlez-moi du poste ou de l\'opportunité...','form.send':'Envoyer →',
+    'footer.copy':'© 2026 Hemanth · DevSecOps & SRE · Paris 🇫🇷','footer.built':'Créé avec HTML, CSS & JS',
+  }},
+  de: { flag: '🇩🇪', code: 'DE', t: {
+    'nav.about':'Über mich','nav.skills':'Fähigkeiten','nav.experience':'Erfahrung','nav.projects':'Projekte','nav.resume':'Lebenslauf','nav.contact':'Kontakt',
+    'hero.tag':'Offen für Praktika · Paris, Frankreich',
+    'hero.subtitle':'SRE · Cloud-Sicherheit · IaC-Ingenieur',
+    'hero.desc':'Entwickler <b>sicherer, automatisierter Cloud-Infrastruktur</b>. MSc-Student in <b>Cloudification & Datensicherheit</b> (Paris). 18 öffentliche GitHub-Repos. 27+ Bash-Automatisierungsskripte. Ehemaliger Data Analytics Engineer bei <b>Capgemini</b> (2 Jahre).',
+    'hero.cta.github':'GitHub ansehen','hero.cta.hire':'Einstellen →',
+    'sec.skills':'Technische Fähigkeiten','sec.experience':'Berufserfahrung','sec.projects':'Projekte','sec.certifications':'Zertifizierungen','sec.education':'Ausbildung','sec.myresume':'Lebenslauf',
+    'contact.build':'aufbauen','contact.together':'zusammen.','contact.sub':'Suche Praktikum in DevSecOps, SRE oder Cloud-Engineering in Paris. Produktionsbereiter Code vom ersten Tag an.',
+    'form.name':'Ihr Name','form.name.ph':'Max Müller','form.email':'E-Mail-Adresse','form.email.ph':'max@firma.de','form.subject':'Betreff','form.subject.ph':'DevSecOps-Praktikum','form.message':'Nachricht','form.message.ph':'Erzählen Sie mir von der Stelle...','form.send':'Absenden →',
+    'footer.copy':'© 2026 Hemanth · DevSecOps & SRE · Paris 🇫🇷','footer.built':'Erstellt mit HTML, CSS & JS',
+  }},
+  nl: { flag: '🇳🇱', code: 'NL', t: {
+    'nav.about':'Over mij','nav.skills':'Vaardigheden','nav.experience':'Ervaring','nav.projects':'Projecten','nav.resume':'CV','nav.contact':'Contact',
+    'hero.tag':'Beschikbaar voor stages · Parijs, Frankrijk',
+    'hero.subtitle':'SRE · Cloudbeveiliging · IaC-ingenieur',
+    'hero.desc':'Bouwer van <b>veilige, geautomatiseerde cloudinfrastructuur</b>. MSc-student in <b>Cloudification & Gegevensbeveiliging</b> (Parijs). 18 publieke GitHub-repos. 27+ Bash-automatiseringsscripts. Voormalig Data Analytics Engineer bij <b>Capgemini</b> (2 jaar).',
+    'hero.cta.github':'GitHub bekijken','hero.cta.hire':'Neem me aan →',
+    'sec.skills':'Technische Vaardigheden','sec.experience':'Werkervaring','sec.projects':'Projecten','sec.certifications':'Certificeringen','sec.education':'Opleiding','sec.myresume':'Mijn CV',
+    'contact.build':'bouwen','contact.together':'samen.','contact.sub':'Op zoek naar een DevSecOps-, SRE- of Cloud Engineering-stage in Parijs.',
+    'form.name':'Uw naam','form.name.ph':'Jan de Vries','form.email':'E-mailadres','form.email.ph':'jan@bedrijf.nl','form.subject':'Onderwerp','form.subject.ph':'DevSecOps Stage','form.message':'Bericht','form.message.ph':'Vertel me over de rol...','form.send':'Versturen →',
+    'footer.copy':'© 2026 Hemanth · DevSecOps & SRE · Parijs 🇫🇷','footer.built':'Gebouwd met HTML, CSS & JS',
+  }},
+  sv: { flag: '🇸🇪', code: 'SV', t: {
+    'nav.about':'Om mig','nav.skills':'Färdigheter','nav.experience':'Erfarenhet','nav.projects':'Projekt','nav.resume':'CV','nav.contact':'Kontakta mig',
+    'hero.tag':'Tillgänglig för praktik · Paris, Frankrike',
+    'hero.subtitle':'SRE · Molnsäkerhet · IaC-ingenjör',
+    'hero.desc':'Bygger <b>säker, automatiserad molninfrastruktur</b>. MSc-student i <b>Cloudification & Datasäkerhet</b> (Paris). 18 publika GitHub-repos. 27+ Bash-automatiseringsskript. Tidigare Data Analytics Engineer på <b>Capgemini</b> (2 år).',
+    'hero.cta.github':'Se GitHub','hero.cta.hire':'Anställ mig →',
+    'sec.skills':'Tekniska Färdigheter','sec.experience':'Arbetslivserfarenhet','sec.projects':'Projekt','sec.certifications':'Certifieringar','sec.education':'Utbildning','sec.myresume':'Mitt CV',
+    'contact.build':'bygga','contact.together':'tillsammans.','contact.sub':'Söker DevSecOps-, SRE- eller Cloud Engineering-praktik i Paris.',
+    'form.name':'Ditt namn','form.name.ph':'Erik Svensson','form.email':'E-postadress','form.email.ph':'erik@foretag.se','form.subject':'Ämne','form.subject.ph':'DevSecOps-praktik','form.message':'Meddelande','form.message.ph':'Berätta om tjänsten...','form.send':'Skicka →',
+    'footer.copy':'© 2026 Hemanth · DevSecOps & SRE · Paris 🇫🇷','footer.built':'Byggd med HTML, CSS & JS',
+  }},
+  pl: { flag: '🇵🇱', code: 'PL', t: {
+    'nav.about':'O mnie','nav.skills':'Umiejętności','nav.experience':'Doświadczenie','nav.projects':'Projekty','nav.resume':'CV','nav.contact':'Kontakt',
+    'hero.tag':'Dostępny na staż · Paryż, Francja',
+    'hero.subtitle':'SRE · Bezpieczeństwo Chmury · Inżynier IaC',
+    'hero.desc':'Buduję <b>bezpieczną, zautomatyzowaną infrastrukturę chmurową</b>. Student MSc w <b>Cloudification & Bezpieczeństwo Danych</b> (Paryż). 18 publicznych repozytoriów GitHub. 27+ skryptów Bash. Były Data Analytics Engineer w <b>Capgemini</b> (2 lata).',
+    'hero.cta.github':'Zobacz GitHub','hero.cta.hire':'Zatrudnij mnie →',
+    'sec.skills':'Umiejętności Techniczne','sec.experience':'Doświadczenie Zawodowe','sec.projects':'Projekty','sec.certifications':'Certyfikaty','sec.education':'Wykształcenie','sec.myresume':'Moje CV',
+    'contact.build':'budować','contact.together':'razem.','contact.sub':'Szukam stażu DevSecOps, SRE lub Cloud Engineering w Paryżu.',
+    'form.name':'Twoje imię','form.name.ph':'Jan Kowalski','form.email':'Adres e-mail','form.email.ph':'jan@firma.pl','form.subject':'Temat','form.subject.ph':'Staż DevSecOps','form.message':'Wiadomość','form.message.ph':'Opowiedz mi o stanowisku...','form.send':'Wyślij →',
+    'footer.copy':'© 2026 Hemanth · DevSecOps & SRE · Paryż 🇫🇷','footer.built':'Zbudowany z HTML, CSS & JS',
+  }},
+  es: { flag: '🇪🇸', code: 'ES', t: {
+    'nav.about':'Sobre mí','nav.skills':'Habilidades','nav.experience':'Experiencia','nav.projects':'Proyectos','nav.resume':'CV','nav.contact':'Contacto',
+    'hero.tag':'Disponible para prácticas · París, Francia',
+    'hero.subtitle':'SRE · Seguridad Cloud · Ingeniero IaC',
+    'hero.desc':'Constructor de <b>infraestructura cloud segura y automatizada</b>. Estudiante de MSc en <b>Cloudification & Seguridad de Datos</b> (París). 18 repos públicos en GitHub. 27+ scripts Bash. Ex Ingeniero de Analytics en <b>Capgemini</b> (2 años).',
+    'hero.cta.github':'Ver GitHub','hero.cta.hire':'Contrátame →',
+    'sec.skills':'Habilidades Técnicas','sec.experience':'Experiencia Laboral','sec.projects':'Proyectos','sec.certifications':'Certificaciones','sec.education':'Formación','sec.myresume':'Mi CV',
+    'contact.build':'construir','contact.together':'juntos.','contact.sub':'Busco prácticas en DevSecOps, SRE o Cloud Engineering en París.',
+    'form.name':'Tu nombre','form.name.ph':'Carlos García','form.email':'Correo electrónico','form.email.ph':'carlos@empresa.es','form.subject':'Asunto','form.subject.ph':'Prácticas DevSecOps','form.message':'Mensaje','form.message.ph':'Cuéntame sobre el puesto...','form.send':'Enviar →',
+    'footer.copy':'© 2026 Hemanth · DevSecOps & SRE · París 🇫🇷','footer.built':'Creado con HTML, CSS & JS',
+  }},
+  it: { flag: '🇮🇹', code: 'IT', t: {
+    'nav.about':'Chi sono','nav.skills':'Competenze','nav.experience':'Esperienza','nav.projects':'Progetti','nav.resume':'CV','nav.contact':'Contattami',
+    'hero.tag':'Disponibile per stage · Parigi, Francia',
+    'hero.subtitle':'SRE · Sicurezza Cloud · Ingegnere IaC',
+    'hero.desc':'Sviluppatore di <b>infrastruttura cloud sicura e automatizzata</b>. Studente MSc in <b>Cloudification & Sicurezza dei Dati</b> (Parigi). 18 repository GitHub pubblici. 27+ script Bash. Ex Data Analytics Engineer presso <b>Capgemini</b> (2 anni).',
+    'hero.cta.github':'Vedi GitHub','hero.cta.hire':'Assumimi →',
+    'sec.skills':'Competenze Tecniche','sec.experience':'Esperienza Lavorativa','sec.projects':'Progetti','sec.certifications':'Certificazioni','sec.education':'Istruzione','sec.myresume':'Il Mio CV',
+    'contact.build':'costruire','contact.together':'insieme.','contact.sub':'Cerco uno stage in DevSecOps, SRE o Cloud Engineering a Parigi.',
+    'form.name':'Il tuo nome','form.name.ph':'Marco Rossi','form.email':'Indirizzo email','form.email.ph':'marco@azienda.it','form.subject':'Oggetto','form.subject.ph':'Stage DevSecOps','form.message':'Messaggio','form.message.ph':'Parlami del ruolo...','form.send':'Invia →',
+    'footer.copy':'© 2026 Hemanth · DevSecOps & SRE · Parigi 🇫🇷','footer.built':'Creato con HTML, CSS & JS',
+  }},
+  pt: { flag: '🇵🇹', code: 'PT', t: {
+    'nav.about':'Sobre mim','nav.skills':'Competências','nav.experience':'Experiência','nav.projects':'Projetos','nav.resume':'CV','nav.contact':'Contacto',
+    'hero.tag':'Disponível para estágio · Paris, França',
+    'hero.subtitle':'SRE · Segurança Cloud · Engenheiro IaC',
+    'hero.desc':'Construtor de <b>infraestrutura cloud segura e automatizada</b>. Estudante de MSc em <b>Cloudification & Segurança de Dados</b> (Paris). 18 repositórios GitHub públicos. 27+ scripts Bash. Ex Engenheiro de Analytics na <b>Capgemini</b> (2 anos).',
+    'hero.cta.github':'Ver GitHub','hero.cta.hire':'Contrate-me →',
+    'sec.skills':'Competências Técnicas','sec.experience':'Experiência Profissional','sec.projects':'Projetos','sec.certifications':'Certificações','sec.education':'Formação','sec.myresume':'O Meu CV',
+    'contact.build':'construir','contact.together':'juntos.','contact.sub':'À procura de estágio em DevSecOps, SRE ou Cloud Engineering em Paris.',
+    'form.name':'O seu nome','form.name.ph':'João Silva','form.email':'Endereço de e-mail','form.email.ph':'joao@empresa.pt','form.subject':'Assunto','form.subject.ph':'Estágio DevSecOps','form.message':'Mensagem','form.message.ph':'Fale-me sobre a oportunidade...','form.send':'Enviar →',
+    'footer.copy':'© 2026 Hemanth · DevSecOps & SRE · Paris 🇫🇷','footer.built':'Criado com HTML, CSS & JS',
+  }},
+  fi: { flag: '🇫🇮', code: 'FI', t: {
+    'nav.about':'Tietoa minusta','nav.skills':'Taidot','nav.experience':'Kokemus','nav.projects':'Projektit','nav.resume':'CV','nav.contact':'Ota yhteyttä',
+    'hero.tag':'Saatavilla harjoitteluun · Pariisi, Ranska',
+    'hero.subtitle':'SRE · Pilviturvallisuus · IaC-insinööri',
+    'hero.desc':'Rakennan <b>turvallista, automatisoitua pilvi-infrastruktuuria</b>. MSc-opiskelija <b>Cloudification & Tietoturva</b> -ohjelmassa (Pariisi). 18 julkista GitHub-repoa. 27+ Bash-automaatioskriptiä. Entinen Data Analytics Engineer <b>Capgeminillä</b> (2 vuotta).',
+    'hero.cta.github':'Katso GitHub','hero.cta.hire':'Palkkaa minut →',
+    'sec.skills':'Tekniset Taidot','sec.experience':'Työkokemus','sec.projects':'Projektit','sec.certifications':'Sertifikaatit','sec.education':'Koulutus','sec.myresume':'Ansioluetteloni',
+    'contact.build':'rakentaa','contact.together':'yhdessä.','contact.sub':'Etsin DevSecOps-, SRE- tai Cloud Engineering -harjoittelupaikkaa Pariisissa.',
+    'form.name':'Nimesi','form.name.ph':'Mikko Virtanen','form.email':'Sähköpostiosoite','form.email.ph':'mikko@yritys.fi','form.subject':'Aihe','form.subject.ph':'DevSecOps-harjoittelu','form.message':'Viesti','form.message.ph':'Kerro minulle tehtävästä...','form.send':'Lähetä →',
+    'footer.copy':'© 2026 Hemanth · DevSecOps & SRE · Pariisi 🇫🇷','footer.built':'Rakennettu HTML:llä, CSS:llä & JS:llä',
+  }},
+};
+
+let currentLang = 'en';
+
+function applyLang(code) {
+  const lang = LANGS[code];
+  if (!lang) return;
+  currentLang = code;
+
+  // Update flag + code in button
+  document.getElementById('currentFlag').textContent = lang.flag;
+  document.getElementById('currentLangCode').textContent = lang.code;
+  document.documentElement.lang = code;
+
+  // Translate all data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (lang.t[key] !== undefined) el.innerHTML = lang.t[key];
   });
-  navLinks.forEach(a => {
-    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+
+  // Translate placeholders
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const key = el.getAttribute('data-i18n-ph');
+    if (lang.t[key] !== undefined) el.placeholder = lang.t[key];
   });
-}, { passive: true });
+
+  // Mark active
+  document.querySelectorAll('.lang-option').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === code);
+  });
+
+  // Save preference
+  try { localStorage.setItem('preferredLang', code); } catch(e) {}
+
+  // Close dropdown
+  document.getElementById('langSwitcher').classList.remove('open');
+}
+
+// Toggle dropdown
+document.getElementById('langBtn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  document.getElementById('langSwitcher').classList.toggle('open');
+});
+
+// Close on outside click
+document.addEventListener('click', () => {
+  document.getElementById('langSwitcher').classList.remove('open');
+});
+
+document.getElementById('langDropdown').addEventListener('click', (e) => e.stopPropagation());
+
+// Wire up options
+document.querySelectorAll('.lang-option').forEach(btn => {
+  btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+});
+
+// Auto-detect browser language on load
+(function() {
+  try {
+    const saved = localStorage.getItem('preferredLang');
+    if (saved && LANGS[saved]) { applyLang(saved); return; }
+  } catch(e) {}
+  const browserLang = (navigator.language || 'en').substring(0, 2).toLowerCase();
+  if (LANGS[browserLang]) applyLang(browserLang);
+  else applyLang('en');
+})();
 </script>
 </body>
 </html>
