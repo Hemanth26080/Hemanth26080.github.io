@@ -1,43 +1,62 @@
 # Hemanth Ponugothi — Cloud & DevSecOps Portfolio
 
-A responsive, static career portfolio designed for GitHub Pages. It uses plain HTML, CSS, and JavaScript — no framework, package manager, build step, or backend required.
+A responsive static portfolio for GitHub Pages, built with plain HTML, CSS and JavaScript. No framework, package manager, build step, backend or API keys are required.
 
-## Included
+## What's included
 
-- Responsive layout for desktop, tablet, and mobile
-- Dark/light theme switch, saved in the visitor's browser
-- Five languages: English (default), French, German, Dutch, and Spanish
-- Animated cloud architecture illustration, pipeline visualization, AWS network diagram, and Kubernetes stack diagram
-- Interactive toolkit tabs and project category filters
-- CV PDF linked from the hero
-- LinkedIn, GitHub project, and email links
-- Scroll progress, subtle reveal animation, keyboard focus styles, and reduced-motion support
+- Recruiter fast lane in the first viewport: target role, Paris/France location, French work-authorisation details, immediate availability, CV download and email link.
+- Security-green visual system with light/dark toggle, mono technical labels, a sans-serif body font and one high-contrast lime CTA colour.
+- English and French language options only; the language selector does not advertise incomplete German, Dutch or Spanish translations.
+- Expertise tabs mapped to real tools and project evidence, without invented proficiency percentages.
+- Three dedicated case-study pages with technical diagrams, step-through walkthroughs, source links and cost notes:
+  - `case-studies/securecloud-flask.html`
+  - `case-studies/aws-infrastructure-security-platform.html`
+  - `case-studies/three-tier-eks.html`
+- Each project page includes an animated technical walkthrough and a source-linked diagram. The SecureCloud animation is illustrative; use the linked screenshot folder for available real project captures.
+- Direct links to the committed Jenkinsfile, Trivy scan report and repository screenshot folder where available.
+- Responsive desktop/tablet/mobile layouts, keyboard focus styles and reduced-motion support.
+- CV PDF, project repository links, LinkedIn and email.
 
-## Publish using GitHub Pages
+## Update your existing GitHub Pages site
 
-1. Download and extract this portfolio ZIP.
-2. In GitHub, create a **public repository** named `Hemanth26080.github.io` for a user site.
-3. Upload the *contents* of this folder to the repository root. Keep `index.html`, `styles.css`, `script.js`, `README.md`, and the `assets/` folder together.
-4. In the repository, open **Settings → Pages**.
-5. Under **Build and deployment**, select **Deploy from a branch**, choose branch `main` and folder `/(root)`, then save.
-6. After GitHub Pages finishes deployment, visit `https://hemanth26080.github.io`.
+The portfolio is intended to replace the files in your existing `Hemanth26080.github.io` repository.
 
-If you use a repository with a different name, GitHub Pages will generally publish it under `https://hemanth26080.github.io/REPOSITORY-NAME/` instead.
+1. Keep a backup branch of the current website before replacing files.
+2. Extract the ZIP and copy the *contents* of `hemanth-portfolio/` into the root of your local clone of `Hemanth26080.github.io`. Do not copy over or remove the hidden `.git` folder.
+3. Preserve any `CNAME` file if you use a custom domain, and preserve any deployment workflow you still use.
+4. Inspect the changes with `git status` and `git diff`.
+5. Commit and push from the local clone:
 
-Official guide: https://docs.github.com/en/pages/quickstart
+   ```bash
+   git add -A
+   git commit -m "Improve recruiter fast lane and add case studies"
+   git push origin main
+   ```
 
-## Edit before publishing
+6. Wait for GitHub Pages to publish and check `https://hemanth26080.github.io` on desktop and mobile.
 
-- **CV:** replace `assets/Hemanth-Ponugothi-CV.pdf` with your latest PDF, keeping the same filename, or update the link in `index.html`.
-- **Contact details:** edit the email and phone/contact details in `index.html` if you want a different public contact method. The current page uses the email from your CV and does not display your phone number in the main layout.
-- **Career details and metrics:** review the wording and figures in `index.html` against your latest CV before publishing.
-- **Languages:** all interface translations are in `script.js`, in the `translations` object.
-- **Colors and layout:** edit CSS variables near the top of `styles.css`.
-- **Projects:** update the three project cards in `index.html` and check their repository URLs.
+If the repository uses GitHub Actions instead of “Deploy from a branch”, keep its existing publishing setup and inspect the workflow before changing Pages settings.
 
-## Notes
+## Evidence and metric notes
 
-- This portfolio is static. It does not collect form submissions, use analytics, or require API keys.
-- Google Fonts are requested from Google Fonts when a visitor has a network connection. The page has system font fallbacks if that request is unavailable.
-- The APS / work-authorisation line reflects the CV provided for this draft. Confirm the wording and validity date before making the site public.
-- Motion is reduced automatically when a visitor has enabled their operating system's reduced-motion setting.
+- The 90% infrastructure-setup figure is labelled as a project-reported estimate against manual console setup; refresh the figure if you have a measured time comparison.
+- The 30%+ MTTR claim is attributed to Capgemini production support and contextualised as structured root-cause analysis and runbooks compared with the prior incident process.
+- The current `image_scan.txt` report contains HIGH-severity findings in OS and Python packages. The Jenkinsfile configures Trivy to fail on HIGH/CRITICAL results; update the published scan report after remediation and a new run.
+- The project README summarizes nine pipeline stages, while the committed Jenkinsfile contains eleven named stage blocks. Staging and production commands currently use `echo` placeholders, and the integration-test stage allows the suite to be absent.
+- The committed Jenkinsfile does not currently invoke OWASP ZAP. It remains listed in the security toolkit as a tool, but should only be described as wired into this pipeline after integration.
+- Walkthrough GIFs explain the project designs; the SecureCloud case study links directly to the public screenshot folder for actual captures.
+
+## Maintain the site
+
+- **CV:** Replace `assets/Hemanth-Ponugothi-CV.pdf` with the latest PDF while keeping the filename, or update `index.html`.
+- **Career facts and availability:** Update the recruiter fast lane in `index.html` and its English/French strings in `script.js` when your status changes.
+- **Translations:** The main page uses the `translations` object in `script.js`; case pages use `data-en` and `data-fr` attributes and `case-studies/case-studies.js`.
+- **Theme/design:** `refined.css` contains the overriding visual system; `case-studies/case-studies.css` styles the project detail pages.
+- **Case-study interactions:** `case-studies/case-studies.js` manages theme, language and walkthrough step state.
+- **Projects:** Keep project links matched to their public repositories and update supporting evidence whenever implementation changes.
+
+## Technical notes
+
+- No form data or analytics are collected.
+- Google Fonts are optional; system fallbacks keep the site usable if the font service is unavailable.
+- Visitors' language and theme preferences are stored locally in their browser.
