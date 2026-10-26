@@ -32,7 +32,7 @@
       themeToggle.title = text;
     }
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', chosen === 'dark' ? '#08140f' : '#f1f4ec');
+    if (meta) meta.setAttribute('content', chosen === 'dark' ? '#0B1020' : '#F5F7FF');
     safeStorageSet('portfolio-theme', chosen);
   }
   function applyLanguage(nextLanguage) {
