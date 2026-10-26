@@ -4,8 +4,8 @@ A responsive static portfolio for GitHub Pages, built with plain HTML, CSS and J
 
 ## What's included
 
-- Recruiter fast lane in the first viewport: target role, Paris/France location, French work-authorisation details, immediate availability, and exactly two clear hero actions: Open CV and Explore.
-- Midnight Cloud visual system with a consistent navy base and cyan, violet, pink and mint accents across the hero, highlights and project artwork; includes a light/dark toggle.
+- Recruiter fast lane in the first viewport: target role, Paris/France location, French work-authorisation details, immediate availability, CV download and email link.
+- Security-green visual system with light/dark toggle, mono technical labels, a sans-serif body font and one high-contrast lime CTA colour.
 - English and French language options only; the language selector does not advertise incomplete German, Dutch or Spanish translations.
 - Expertise tabs mapped to real tools and project evidence, without invented proficiency percentages.
 - Three dedicated case-study pages with technical diagrams, step-through walkthroughs, source links and cost notes:
@@ -13,7 +13,7 @@ A responsive static portfolio for GitHub Pages, built with plain HTML, CSS and J
   - `case-studies/aws-infrastructure-security-platform.html`
   - `case-studies/three-tier-eks.html`
 - Each project page includes an animated technical walkthrough and a source-linked diagram. The SecureCloud animation is illustrative; use the linked screenshot folder for available real project captures.
-- Direct links to the committed Jenkinsfile, Trivy scan report, repository screenshot folder, and verified individual Ansible project repositories.
+- Direct links to the committed Jenkinsfile, Trivy scan report and repository screenshot folder where available.
 - Responsive desktop/tablet/mobile layouts, keyboard focus styles and reduced-motion support.
 - CV PDF, project repository links, LinkedIn and email.
 
@@ -29,7 +29,7 @@ The portfolio is intended to replace the files in your existing `Hemanth26080.gi
 
    ```bash
    git add -A
-   git commit -m "Fix portfolio actions, alignment and theme"
+   git commit -m "Improve recruiter fast lane and add case studies"
    git push origin main
    ```
 

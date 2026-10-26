@@ -762,6 +762,38 @@ html[data-theme="light"] {
 .network-svg text { fill: #DCE7FF !important; }
 .network-svg path { stroke: #A78BFA !important; }
 
+/* Desktop hero alignment: keep the statement and delivery flow in one visual row. */
+@media (min-width: 781px) {
+  .hero {
+    align-items: start;
+    grid-template-columns: minmax(0, .94fr) minmax(0, 1.06fr);
+    gap: clamp(30px, 4vw, 58px);
+    padding-top: clamp(48px, 5vw, 66px);
+    padding-bottom: 76px;
+  }
+  .hero-copy { padding-bottom: 0; }
+  .hero h1 {
+    font-size: clamp(3.45rem, 5.35vw, 5.35rem);
+    line-height: .98;
+    max-width: 100%;
+    overflow-wrap: normal;
+    text-wrap: balance;
+  }
+  .hero-visual.flow-board { margin-top: 34px; }
+  .flow-stages { isolation: isolate; }
+  .flow-stages::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 63px;
+    top: 24px;
+    bottom: 24px;
+    width: 1px;
+    background: linear-gradient(180deg, #38BDF8 0%, #8B5CF6 55%, #F472B6 100%);
+    opacity: .55;
+  }
+}
+
 /* Keep the mobile layout deliberate: no horizontal page overflow and clear tap targets. */
 @media (max-width: 1050px) {
   .hero { gap: 24px; }
